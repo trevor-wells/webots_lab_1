@@ -1,0 +1,169 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/factory/containers/protos/WoodenBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/Floor.proto"
+
+WorldInfo {
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      material2 "dumbbell"
+      coulombFriction [
+        0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.2465114277342538 -0.07379472215046293 -0.9663262673544353 3.7047594871430416
+  position 2.174556031803925 -1.4817500949611728 1.4408295164738618
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 1 1
+}
+DEF WALL_1 Solid {
+  translation 0 0.5 0.05
+  children [
+    DEF WALL Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 1
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box {
+        size 1 0.025 0.1
+      }
+    }
+  ]
+  name "solid(3)"
+  boundingObject USE WALL
+}
+DEF WALL_2 Solid {
+  translation 0 -0.5 0.05
+  children [
+    USE WALL
+  ]
+  name "solid(4)"
+  boundingObject USE WALL
+}
+DEF WALL_3 Solid {
+  translation 0.5 0 0.05
+  rotation 0 0 1 -1.5707953071795862
+  children [
+    USE WALL
+  ]
+  name "solid(5)"
+  boundingObject USE WALL
+}
+DEF WALL_4 Solid {
+  translation -0.5 -1.01961e-06 0.05
+  rotation 0 0 1 -1.5707953071795862
+  children [
+    USE WALL
+  ]
+  name "solid(6)"
+  boundingObject USE WALL
+}
+DEF BALL Solid {
+  translation 0.2 0 0.04958907983689184
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "../../../brick.jpeg"
+          ]
+        }
+        roughness 0.5
+        metalness 0
+      }
+      geometry DEF BALL_GEOMETRY Sphere {
+        radius 0.05
+        subdivision 2
+      }
+    }
+  ]
+  name "solid(1)"
+  boundingObject USE BALL_GEOMETRY
+  physics Physics {
+  }
+}
+WoodenBox {
+  translation 0.0990457 -0.312226 0.049960759999999396
+  rotation 1.8708161769452227e-18 9.240860003059332e-17 1 0.261799
+  size 0.1 0.1 0.1
+  mass 0.2
+}
+WoodenBox {
+  translation -0.264292 -0.202025 0.049960760000000055
+  rotation -2.1172789915545403e-17 4.031217941055905e-17 1 0.523599
+  name "wooden box(1)"
+  size 0.1 0.1 0.1
+  mass 0.2
+}
+WoodenBox {
+  translation 0.380643000008231 -0.0030361599977945185 0.0499607600000388
+  rotation 1.8236797609218947e-16 -2.7278798082375864e-16 -1 0.5235953071795857
+  name "wooden box(2)"
+  size 0.1 0.1 0.1
+  mass 0.2
+}
+E-puck {
+  translation 0.003943369403787127 0.004471231368130032 -3.193738539443783e-05
+  rotation 0.0010469263064094975 0.0005317801472621256 0.9999993105773543 -2.201630326438761
+  controller "epuck_avoid_collision"
+}
+Solid {
+  translation 0 0 0.2
+  rotation 0 1 0 1.5708
+  children [
+    DEF G0 Group {
+      children [
+        Pose {
+          translation 0 0 0.06
+          children [
+            Shape {
+              geometry Sphere {
+                radius 0.03
+                subdivision 2
+              }
+            }
+          ]
+        }
+        Pose {
+          translation 0 0 -0.06
+          children [
+            Shape {
+              geometry Sphere {
+                radius 0.03
+                subdivision 2
+              }
+            }
+          ]
+        }
+        Shape {
+          geometry Cylinder {
+            height 0.1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  contactMaterial "dumbbell"
+  boundingObject USE G0
+  physics Physics {
+    density -1
+    mass 2
+    centerOfMass [
+      0 0 0.01
+    ]
+  }
+}
